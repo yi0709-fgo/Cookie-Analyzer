@@ -1,9 +1,12 @@
 import com.example.service.MostActiveCookie;
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MostActiveCookieTest {
     public static void main(String[] args) {
@@ -29,11 +32,50 @@ public class MostActiveCookieTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void testParseCommand() throws Exception {
+        // 构造命令行：java -jar [jar] -f [file] -d [date]
+        ProcessBuilder pb = new ProcessBuilder(
+                "java",
+                "-jar",
+                "target/cookie-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar",
+                "-f", "cookie_log.csv",
+                "-d", "2018-12-09"
+        );
+        ProcessBuilder pb1 = new ProcessBuilder(
+                "java",
+                "-jar",
+                "target/cookie-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar",
+                "-f", "cookie_log.csv",
+                "-d", ""
+        );
 
+        // 启动进程
+        Process process = pb.start();
 
-    public void TestCookie() throws IOException {
-        List<String> cookie =  MostActiveCookie.process("cookie_log.csv","2018-12-06");
+        // 读取标准输出
+        String output = new BufferedReader(
+                new InputStreamReader(process.getInputStream())
+        ).lines().collect(Collectors.joining("\n"));
 
-        System.out.println(cookie);
+        // 等待进程结束
+        int exitCode = process.waitFor();
+
+        System.out.println(output);
     }
+
+    @Test
+    public void TestCookie() throws IOException {
+        List<String> cookie =  MostActiveCookie.process("cookie_log.csv","2018-12-09");
+        System.out.println(cookie);
+        List<String> cookie1 =  MostActiveCookie.process("cookie_log.csv","2018-12-08");
+        System.out.println(cookie1);
+        List<String> cookie2 =  MostActiveCookie.process("cookie_log.csv","2018-12-07");
+        System.out.println(cookie2);
+        List<String> cookie3 =  MostActiveCookie.process("cookie_log.csv","2018-12-06");
+        System.out.println(cookie3);
+
+    }
+
+
 }

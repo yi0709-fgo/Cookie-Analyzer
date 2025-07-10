@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tools {
+public class ParseFile {
     public static List<LogData> parseLog(String filePath) throws IOException {
         List<LogData> logData = new ArrayList<>();
         // Read CSV file. For each row, instantiate and collect `DailyProduct`.

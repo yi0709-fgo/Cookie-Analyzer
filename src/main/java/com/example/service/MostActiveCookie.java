@@ -2,11 +2,9 @@ package com.example.service;
 
 import com.example.domain.LogData;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.util.*;
 
-import static com.example.utill.Tools.parseLog;
+import static com.example.utill.ParseFile.parseLog;
 
 public class MostActiveCookie {
 
