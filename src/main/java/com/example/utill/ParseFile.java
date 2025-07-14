@@ -15,7 +15,7 @@ import java.util.List;
 public class ParseFile {
     public static List<LogData> parseLog(String filePath) throws IOException {
         List<LogData> logData = new ArrayList<>();
-        // Read CSV file. For each row, instantiate and collect `DailyProduct`.
+        // Read CSV file. For each row, convert to Logdata.
         Path path = Paths.get(filePath);
         BufferedReader reader = Files.newBufferedReader(path);
         Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(reader);

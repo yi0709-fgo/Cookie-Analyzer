@@ -22,10 +22,11 @@ public class Main {
 
             String file = cmd.getOptionValue("f");
             String date = cmd.getOptionValue("d");
+            //edge senario
             if(file.isEmpty() || date.isEmpty()){
                 throw new IllegalArgumentException("illegal args");
             }
-            //parse file
+            //parse file and get cookies
             List<String> cookies = MostActiveCookie.process(file,date);
             for(String cookie:cookies){
                 System.out.println(cookie);
