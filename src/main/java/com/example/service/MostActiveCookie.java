@@ -4,7 +4,7 @@ import com.example.domain.LogData;
 import java.io.IOException;
 import java.util.*;
 
-import static com.example.utill.ParseFile.parseLog;
+import static com.example.parse.ParseFile.parseLog;
 
 public class MostActiveCookie {
 
