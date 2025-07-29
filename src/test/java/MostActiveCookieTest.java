@@ -1,10 +1,14 @@
+import com.example.domain.LogData;
 import com.example.service.MostActiveCookie;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,14 +36,14 @@ public class MostActiveCookieTest {
             e.printStackTrace();
         }
     }
-    //@Test
+    @Test
     public void testParseCommand() throws Exception {
         // 构造命令行：java -jar [jar] -f [file] -d [date]
         ProcessBuilder pb = new ProcessBuilder(
                 "java",
                 "-jar",
                 "target/cookie-analyzer-1.0-SNAPSHOT-jar-with-dependencies.jar",
-                "-f", "cookie_log.csv",
+                "-f", "/Users/jiangyi/Desktop/TaskA/logFile",
                 "-d", "2018-12-09"
         );
         ProcessBuilder pb1 = new ProcessBuilder(
@@ -74,6 +78,35 @@ public class MostActiveCookieTest {
         System.out.println(cookie2);
         List<String> cookie3 =  MostActiveCookie.process("cookie_log.csv","2018-12-06");
         System.out.println(cookie3);
+
+    }
+    @Test
+    public void testFile() throws IOException {
+        String filePath = "/Users/jiangyi/Desktop/TaskA/logFile";
+        List<LogData> logData = new ArrayList<>();
+
+        File folder = new File(filePath);
+        if(folder.isDirectory()){
+            File[] listOfFiles = folder.listFiles();
+            for (File file : listOfFiles) {
+                if (file.isFile()) {
+                    Path path = Paths.get(file.getPath());
+
+                    BufferedReader reader = Files.newBufferedReader(path);
+                    Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(reader);
+                    for (CSVRecord record : records) {
+                        LogData data = new LogData();
+                        String cookie = record.get( "cookie" );
+                        String timestamp = record.get( "timestamp" );
+                        data.setCookie(cookie);
+                        data.setTimeStamp(timestamp);
+                        logData.add(data);
+                    }
+                }
+            }
+
+        }
+
 
     }
 

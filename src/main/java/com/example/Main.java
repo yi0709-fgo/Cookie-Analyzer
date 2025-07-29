@@ -9,10 +9,12 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
+        args = new String[]{"-f ./logFile","-d 2018-12-09"};
         //parse cli
         Options options = new Options();
 
-        options.addOption("f", true, "Input file (e.g. cookie_log.csv)");
+        options.addOption("f", true, "Input file directory (e.g. cookie_log.csv)");
         options.addOption("d", true, "Date (e.g. 2018-12-09)");
 
         CommandLineParser parser = new DefaultParser();
@@ -23,7 +25,7 @@ public class Main {
             String file = cmd.getOptionValue("f");
             String date = cmd.getOptionValue("d");
             //edge senario
-            if(file.isEmpty() || date.isEmpty()){
+            if( file.isEmpty() || date.isEmpty()){
                 throw new IllegalArgumentException("illegal args");
             }
             //parse file and get cookies
