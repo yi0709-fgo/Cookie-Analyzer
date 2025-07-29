@@ -15,6 +15,9 @@ import java.util.List;
 
 public class ParseFile {
     public static List<LogData> parseLog(String filePath) throws IOException {
+
+        System.out.println("filePath = " + filePath);
+
         List<LogData> logData = new ArrayList<>();
         File folder = new File(filePath);
         if(folder.isDirectory()){
@@ -43,4 +46,5 @@ public class ParseFile {
 
         return logData;
     }
+
 }

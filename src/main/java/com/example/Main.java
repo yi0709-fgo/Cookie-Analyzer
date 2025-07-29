@@ -10,7 +10,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        args = new String[]{"-f ./logFile","-d 2018-12-09"};
+        args = new String[]{"-f /Users/jiangyi/Desktop/TaskA/logFile","-d 2018-12-09"};
         //parse cli
         Options options = new Options();
 
@@ -23,6 +23,7 @@ public class Main {
             CommandLine cmd = parser.parse(options, args);
 
             String file = cmd.getOptionValue("f");
+             file = file.replaceAll("\\s+", "");
             String date = cmd.getOptionValue("d");
             //edge senario
             if( file.isEmpty() || date.isEmpty()){
@@ -36,7 +37,7 @@ public class Main {
 
         } catch (ParseException | IOException e) {
             System.out.println("args format error: " + e.getMessage());
-            formatter.printHelp("java -jar yourapp.jar -f <filename> -d <date>", options);
+            formatter.printHelp("java -jar yourapp.jar -f <file> -d <date>", options);
             System.exit(1);
         }
 
