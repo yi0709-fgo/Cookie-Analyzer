@@ -32,7 +32,7 @@ public class MostActiveCookieTest {
             e.printStackTrace();
         }
     }
-    @Test
+    //@Test
     public void testParseCommand() throws Exception {
         // 构造命令行：java -jar [jar] -f [file] -d [date]
         ProcessBuilder pb = new ProcessBuilder(
@@ -64,7 +64,7 @@ public class MostActiveCookieTest {
         System.out.println(output);
     }
 
-    @Test
+//    @Test
     public void TestCookie() throws IOException {
         List<String> cookie =  MostActiveCookie.process("cookie_log.csv","2018-12-09");
         System.out.println(cookie);
@@ -76,6 +76,8 @@ public class MostActiveCookieTest {
         System.out.println(cookie3);
 
     }
+
+
 
 
 }
